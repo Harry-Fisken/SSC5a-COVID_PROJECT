@@ -70,6 +70,28 @@ covid_UK %>% filter(!is.na(weekly_hosp_admissions)) %>%
 
 
 ##Regression Discontinuity##
+
+start_time = as.Date(2020-06-19)
+
+change_time = as.Date(2020-07-24)
+
+end_time = as.Date(2020-08-23)
+
+covid_UK <- filter(covid_UK, date >= start_time & date <= end_time)
+
+covid_UK <- mutate(covid_UK,
+                   day = as.numeric(date - start_time),
+                   change = ifelse(date > change_time, 1, 0),
+                   days_postchange = day * change)
+
+Keep getting this error - Error in as.Date.numeric(2020 - 6 - 19) : 'origin' must be supplied for the first three lines of code, i have tried to fix it as below but have had no luck.
+
+##Model 0
+
+model0 <-glm(new_deaths ~ day+change+days_postchange, family="poisson", data = covid_UK)
+
+
+### Attempt to fix the problem with no luck as of yet  ###
   
 options(date.origin = "1970-01-01")
 as.date <- function(x, origin = getOption("date.origin"))
@@ -91,9 +113,13 @@ covid_UK <- mutate(covid_UK,
                    change = ifelse(date > change_date, 1, 0),
                    days_postchange = day * change)
 
+
+
+
 Colnames.Covid2 <- colnames(covid_UK, do.NULL = TRUE, prefix = "col")
 View(Colnames.Covid2)
 view(covid_UK)
+
 #Model 0
 
 model0 <-glm(new_deaths ~ day+change+days_postchange, family="poisson", data = covid_UK)
