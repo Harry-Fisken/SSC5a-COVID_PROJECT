@@ -9,7 +9,7 @@ covid_global <- read_csv('https://covid.ourworldindata.org/data/owid-covid-data.
 covid_UK <- covid_global %>% filter(iso_code == 'GBR')
 
 
-Colnames.Covid <- colnames(covid_UK, do.NULL = TRUE, prefix = "col")
+Colnames.Covid <- colnames(covid_UK)
 View(Colnames.Covid)
 
 #Total Number of Deaths 
@@ -18,16 +18,17 @@ covid_UK %>%
   scale_x_date(date_breaks = "1 month", date_labels = '%D')
 
 #New Deaths#
-covid_global %>%
-  filter(iso_code == 'GBR') %>%
-  ggplot(aes(x = date, y = new_deaths)) + geom_line() +
+# Steven: You already created covid_UK - use it
+#covid_global %>%
+#  filter(iso_code == 'GBR') %>%
+covid_UK %>%  ggplot(aes(x = date, y = new_deaths)) + geom_line() +
   scale_x_date(date_breaks = "1 month", date_labels = '%D') +
   scale_y_continuous(labels = scales::comma) +
   labs(x = "Date", y = 'Confirmed New Deaths (n)', title = 'Number of Confirmed New COVID-19 Deaths in the UK')
 
-covid_global %>%
-  filter(iso_code == 'GBR') %>%
-  ggplot(aes(x = date, y = )) + geom_line() +
+# covid_global %>%
+#   filter(iso_code == 'GBR') %>%
+covid_UK %>% ggplot(aes(x = date, y = )) + geom_line() +
   scale_x_date(date_breaks = "", date_labels = '%D')
 
 #Daily COVID-19 Tests# 
@@ -41,25 +42,24 @@ covid_UK %>%
 #Number of Hopsital Patients# 
 covid_UK %>%
   
-  covid_UK %>% filter(!is.na(weekly_hosp_admissions)) %>% 
-  
+covid_UK %>% filter(!is.na(weekly_hosp_admissions)) %>% 
   ggplot(aes(x = date, y = weekly_hosp_admissions)) + geom_line() +
   scale_x_date(date_breaks = "1 month", date_labels = '%D') +
   scale_y_continuous(labels = scales::comma) +
   labs(x = "Date", y = 'Hospital Patients (n)', title = 'Number of COVID-19 Hospital Patients in the UK Between March 2020 - August 2021')
 
 #Number of Hopsital Patients# 
-covid_global %>%
-  filter(iso_code == 'GBR') %>%
+# covid_global %>%
+#   filter(iso_code == 'GBR') %>%
+covid_UK %>%
   ggplot(aes(x = date, y = icu_patients)) + geom_line() +
   scale_x_date(date_breaks = "1 month", date_labels = '%D') +
   scale_y_continuous(labels = scales::comma) +
   labs(x = "Date", y = 'ICU Patients (n)', title = 'Number of COVID-19 ICU Patients in the UK Between March 2020 - August 2021')
 
 ###Weekly Hospital Admissions###
-
+# Steven : this is a repetition of what came above
 covid_UK %>% filter(!is.na(weekly_hosp_admissions)) %>% 
-  
   ggplot(aes(x = date, y = weekly_hosp_admissions)) + geom_line() +
   scale_x_date(date_breaks = "1 month", date_labels = '%D') +
   scale_y_continuous(labels = scales::comma) +
@@ -71,11 +71,11 @@ covid_UK %>% filter(!is.na(weekly_hosp_admissions)) %>%
 
 ##Regression Discontinuity##
 
-start_time = as.Date(2020-06-19)
+start_time = as.Date('2020-06-19')
 
-change_time = as.Date(2020-07-24)
+change_time = as.Date('2020-07-24')
 
-end_time = as.Date(2020-08-23)
+end_time = as.Date('2020-08-23')
 
 covid_UK <- filter(covid_UK, date >= start_time & date <= end_time)
 
@@ -84,8 +84,8 @@ covid_UK <- mutate(covid_UK,
                    change = ifelse(date > change_time, 1, 0),
                    days_postchange = day * change)
 
-Keep getting this error - Error in as.Date.numeric(2020 - 6 - 19) : 'origin' must be supplied for the first three lines of code, i have tried to fix it as below but have had no luck.
-
+# Keep getting this error - Error in as.Date.numeric(2020 - 6 - 19) : 'origin' must be supplied for the first three lines of code, i have tried to fix it as below but have had no luck.
+# Steven: You forgot to put quotation marks around the dates. They have to be strings, which you then convert to a date
 ##Model 0
 
 model0 <-glm(new_deaths ~ day+change+days_postchange, family="poisson", data = covid_UK)
