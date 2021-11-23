@@ -71,6 +71,8 @@ covid_UK %>% filter(!is.na(weekly_hosp_admissions)) %>%
 
 ##Regression Discontinuity##
 
+##Effects of Mask Mandate in the UK##
+
 start_time = as.Date('2020-06-19')
 
 change_time = as.Date('2020-07-24')
@@ -84,46 +86,51 @@ covid_UK <- mutate(covid_UK,
                    change = ifelse(date > change_time, 1, 0),
                    days_postchange = day * change)
 
-# Keep getting this error - Error in as.Date.numeric(2020 - 6 - 19) : 'origin' must be supplied for the first three lines of code, i have tried to fix it as below but have had no luck.
-# Steven: You forgot to put quotation marks around the dates. They have to be strings, which you then convert to a date
-##Model 0
+
+
 
 model0 <-glm(new_deaths ~ day+change+days_postchange, family="poisson", data = covid_UK)
+summary(model0)
 
+model1 <-glm(new_cases ~ day+change+days_postchange, family="poisson", data = covid_UK)
+summary(model1)
 
-### Attempt to fix the problem with no luck as of yet  ###
+model2 <-glm(weekly_hosp_admissions ~ day+change+days_postchange, family="poisson", data = covid_UK)
+summary(model2)
+
+model3 <-glm (weekly_icu_admissions ~ day+change+days_postchange, family="poisson", data = covid_UK)
+summary(model3)
+
+##model3 isnt working##
   
-options(date.origin = "1970-01-01")
-as.date <- function(x, origin = getOption("date.origin"))
 
-start_time <- 2020-06-19
-start_date <- as.Date(start_time, format = "%y-%m-%d")
+##Effects of Lockdown 1 (March 23 2020)##  
 
-change_time <- 2020-07-24
-change_date <- as.Date(change_time, format = "%d-%m-%y")
-  
-end_time <- 2020-08-23
-end_date <- as.Date(end_time, format = "%d-%m-%y")
+start_time = as.Date('2020-02-24')
 
+change_time = as.Date('2020-03-23')
 
-covid_UK <- filter(covid_UK, date >= start_date & date <= end_date)
+end_time = as.Date('2020-04-13')
 
-covid_UK <- mutate(covid_UK, 
-                   day = as.numeric(date - start_date),
-                   change = ifelse(date > change_date, 1, 0),
+covid_UK <- filter(covid_UK, date >= start_time & date <= end_time)
+
+covid_UK <- mutate(covid_UK,
+                   day = as.numeric(date - start_time),
+                   change = ifelse(date > change_time, 1, 0),
                    days_postchange = day * change)
 
+model4 <-glm(new_deaths ~ day+change+days_postchange, family="poisson", data = covid_UK)
+summary(model4)
 
+model5 <-glm(new_cases ~ day+change+days_postchange, family="poisson", data = covid_UK)
+summary(model5)
 
+model6 <-glm(weekly_hosp_admissions ~ day+change+days_postchange, family="poisson", data = covid_UK)
+summary(model6)
 
-Colnames.Covid2 <- colnames(covid_UK, do.NULL = TRUE, prefix = "col")
-View(Colnames.Covid2)
-view(covid_UK)
+model7 <- glm(weekly_icu_admissions ~ day+change+days_postchange, family = "poisson", data = covid_UK)
+summary(model7)
 
-#Model 0
-
-model0 <-glm(new_deaths ~ day+change+days_postchange, family="poisson", data = covid_UK)
-
-
+##model 7 isnt working - clearly doesnt like ICU admissions lol##
 
 
