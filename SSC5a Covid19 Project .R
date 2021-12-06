@@ -468,6 +468,7 @@ round(exp(coef((model8))),2)
 round(cbind(RR = exp(coef(model8)),exp(confint(model8))),2)
 
 
+covid_masks <- covid_UK %>% filter(date == '2020-06-19 -> 2020-08-23')
 
 
 
