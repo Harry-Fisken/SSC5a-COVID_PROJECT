@@ -28,8 +28,8 @@ covid_UK %>%  ggplot(aes(x = date, y = new_deaths)) + geom_line() +
 
 # covid_global %>%
 #   filter(iso_code == 'GBR') %>%
-covid_UK %>% ggplot(aes(x = date, y = )) + geom_line() +
-  scale_x_date(date_breaks = "", date_labels = '%D')
+#covid_UK %>% ggplot(aes(x = date, y = )) + geom_line() +
+ # scale_x_date(date_breaks = "", date_labels = '%D')
 
 #Daily COVID-19 Tests# 
 covid_UK %>%
@@ -40,7 +40,7 @@ covid_UK %>%
 
 
 #Number of Hopsital Patients# 
-covid_UK %>%
+#covid_UK %>%
   
 covid_UK %>% filter(!is.na(weekly_hosp_admissions)) %>% 
   ggplot(aes(x = date, y = weekly_hosp_admissions)) + geom_line() +
@@ -106,10 +106,10 @@ summary(model2)
 covid_UK_1 <- covid_UK_1 %>%
   mutate(prediction_model0=predict(model0,type="response"))
 
-covid_UK_1 <- covid_UK_1 %>%
-  mutate(prediction_model0=0)
+# covid_UK_1 <- covid_UK_1 %>%
+#   mutate(prediction_model0=0)
 
-covid_UK_1$prediction_model0=predict(model0,type="response")
+# covid_UK_1$prediction_model0=predict(model0,type="response")
 
 ggplot(covid_UK_1, aes(x=date, col=new_deaths)) +
   geom_line(aes(y=prediction_model0)) +
@@ -122,10 +122,17 @@ ggplot(covid_UK_1, aes(x=date, col=new_deaths)) +
 covid_UK_1 <- covid_UK_1 %>%
   mutate(prediction_model1=predict(model1,type="response"))
 
+<<<<<<< HEAD
+# covid_U_1K <- covid_UK_1 %>%
+#   mutate(prediction_model1=0)
+# 
+# covid_UK_1$prediction_model1=predict(model1,type="response")
+=======
 covid_UK_1 <- covid_UK_1 %>%
   mutate(prediction_model1=0)
 
 covid_UK_1$prediction_model1=predict(model1,type="response")
+>>>>>>> 053b80ec85642ce2293963490281c5b976094a57
 
 ggplot(covid_UK_1, aes(x=date, col=new_cases)) +
   geom_line(aes(y=prediction_model1)) +
@@ -138,11 +145,11 @@ ggplot(covid_UK_1, aes(x=date, col=new_cases)) +
 
 covid_UK_1 <- covid_UK_1 %>%
   mutate(prediction_model2=predict(model2,type="response"))
-
-covid_UK_1 <- covid_UK_1 %>%
-  mutate(prediction_model2=0)
-
-covid_UK_1$prediction_model2=predict(model2,type="response")
+# 
+# covid_UK_1 <- covid_UK_1 %>%
+#   mutate(prediction_model2=0)
+# 
+# covid_UK_1$prediction_model2=predict(model2,type="response")
 
 ggplot(covid_UK_1, aes(x=date, col=weekly_hosp_admissions)) +
   geom_line(aes(y=prediction_model2)) +
@@ -181,13 +188,22 @@ summary(model6)
 
 ##Model4##
 
-covid_UK_2 <- covid_UK_2 %>%
-  mutate(prediction_model4=predict(model4,type="response"))
+
+
+prediction_model4 = data.frame(predict(model4,type="response")) 
+
+prediction_model4 = prediction_model4 %>%
+  mutate(day = as.numeric(row.names(prediction_model4)))
+
+names(prediction_model4) = c('prediction_model4', 'day')
 
 covid_UK_2 <- covid_UK_2 %>%
-  mutate(prediction_model4=0)
+  left_join(prediction_model4)
 
-covid_UK_2$prediction_model4=predict(model4,type="response")
+# covid_UK_2 <- covid_UK_2 %>%
+#   mutate(prediction_model4=0)
+# 
+# covid_UK_2$prediction_model4=predict(model4,type="response")
 
 ggplot(covid_UK_2, aes(x=date, col=new_deaths)) +
   geom_line(aes(y=prediction_model4)) +
@@ -201,11 +217,16 @@ ggplot(covid_UK_2, aes(x=date, col=new_deaths)) +
 covid_UK_2 <- covid_UK_2 %>%
   mutate(prediction_model5=predict(model5,type="response"))
 
-covid_UK_2 <- covid_UK_2 %>%
-  mutate(prediction_model5=0)
+# covid_UK_2 <- covid_UK_2 %>%
+#   mutate(prediction_model5=0)
+# 
+# covid_U_2K$prediction_model5=predict(model5,type="response")
 
+<<<<<<< HEAD
+=======
 covid_UK_2$prediction_model5=predict(model5,type="response")
 
+>>>>>>> 053b80ec85642ce2293963490281c5b976094a57
 ggplot(covid_UK_2, aes(x=date, col=new_cases)) +
   geom_line(aes(y=prediction_model5)) +
   scale_y_log10() +
@@ -216,6 +237,27 @@ ggplot(covid_UK_2, aes(x=date, col=new_cases)) +
 
 ##Model6##
 
+<<<<<<< HEAD
+
+prediction_model6 = data.frame(predict(model6,type="response")) 
+
+prediction_model6 = prediction_model6 %>%
+  mutate(day = as.numeric(row.names(prediction_model6)))
+
+names(prediction_model6) = c('prediction_model6', 'day')
+
+covid_UK_2 <- covid_UK_2 %>%
+  left_join(prediction_model6)
+
+# covid_UK_2 <- covid_UK_2 %>%
+#   mutate(prediction_model6=predict(model6,type="response"))
+
+# covid_UK_2 <- covid_UK_2 %>%
+#   mutate(prediction_model6=0)
+# 
+# covid_UK_2$prediction_model6=predict(model6,type="response")
+
+=======
 covid_UK_2 <- covid_UK_2 %>%
   mutate(prediction_model6=predict(model6,type="response"))
 
@@ -224,6 +266,7 @@ covid_UK_2 <- covid_UK_2 %>%
 
 covid_UK_2$prediction_model6=predict(model6,type="response")
 
+>>>>>>> 053b80ec85642ce2293963490281c5b976094a57
 ggplot(covid_UK_2, aes(x=date, col=weekly_hosp_admissions)) +
   geom_line(aes(y=prediction_model6)) +
   scale_y_log10() +
@@ -262,10 +305,10 @@ summary(model10)
 Covid_UK_3 <- covid_UK_3 %>%
   mutate(prediction_model8=predict(model8,type="response"))
 
-covid_UK_3 <- covid_UK_3 %>%
-  mutate(prediction_model8=0)
-
-covid_UK_3$prediction_model8=predict(model8,type="response")
+# covid_UK_3 <- covid_UK_3 %>%
+#   mutate(prediction_model8=0)
+# 
+# covid_UK_3$prediction_model8=predict(model8,type="response")
 
 ggplot(covid_UK_3, aes(x=date, col=new_deaths)) +
   geom_line(aes(y=prediction_model8)) +
@@ -275,13 +318,13 @@ ggplot(covid_UK_3, aes(x=date, col=new_deaths)) +
 
 ##Model9##
 
-Covid_UK_3 <- covid_UK_3 %>%
-  mutate(prediction_model9=predict(model9,type="response"))
-
 covid_UK_3 <- covid_UK_3 %>%
-  mutate(prediction_model9=0)
-
-covid_UK_3$prediction_model9=predict(model9,type="response")
+  mutate(prediction_model9=predict(model9,type="response"))
+# 
+# covid_UK_3 <- covid_UK_3 %>%
+#   mutate(prediction_model9=0)
+# 
+# covid_UK_3$prediction_model9=predict(model9,type="response")
 
 ggplot(covid_UK_3, aes(x=date, col=new_cases)) +
   geom_line(aes(y=prediction_model9)) +
@@ -292,7 +335,7 @@ ggplot(covid_UK_3, aes(x=date, col=new_cases)) +
 
 ##Model10##
 
-Covid_UK_3 <- covid_UK_3 %>%
+covid_UK_3 <- covid_UK_3 %>%
   mutate(prediction_model10=predict(model10,type="response"))
 
 covid_UK_3 <- covid_UK_3 %>%
@@ -308,7 +351,10 @@ ggplot(covid_UK_3, aes(x=date, col=weekly_hosp_admissions)) +
 
 
 
-
+# Stevne: None of the code form here on in will work properly
+# you are using the dataframe restricted between certain times (e.g covid_UK_2, covid_UK_3)
+# to make the predictions. Youre then trying to insert thse predictions into a dataframe
+# that covers a much lager time period. Hence the error messages
 
 #Present the predictors of the model
 #Shows how the model fits the data
