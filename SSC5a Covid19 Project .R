@@ -114,13 +114,15 @@ covid_UK_1$prediction_model0=predict(model0,type="response")
 ggplot(covid_UK_1, aes(x=date, col=new_deaths)) +
   geom_line(aes(y=prediction_model0)) +
   scale_y_log10() +
-  geom_point(aes(y=new_deaths))
+  geom_point(aes(y=new_deaths))+
+  labs(x = "Date", y = 'COVID-19 Deaths by Day (n)')
+  
 
 ##model1##
 covid_UK_1 <- covid_UK_1 %>%
   mutate(prediction_model1=predict(model1,type="response"))
 
-covid_U_1K <- covid_UK_1 %>%
+covid_UK_1 <- covid_UK_1 %>%
   mutate(prediction_model1=0)
 
 covid_UK_1$prediction_model1=predict(model1,type="response")
@@ -128,7 +130,9 @@ covid_UK_1$prediction_model1=predict(model1,type="response")
 ggplot(covid_UK_1, aes(x=date, col=new_cases)) +
   geom_line(aes(y=prediction_model1)) +
   scale_y_log10() +
-  geom_point(aes(y=new_cases))
+  geom_point(aes(y=new_cases)) +
+  labs(x = "Date", y = 'COVID-19 Cases by Day (n)')
+
 
 ##model2##
 
@@ -143,7 +147,8 @@ covid_UK_1$prediction_model2=predict(model2,type="response")
 ggplot(covid_UK_1, aes(x=date, col=weekly_hosp_admissions)) +
   geom_line(aes(y=prediction_model2)) +
   scale_y_log10() +
-  geom_point(aes(y=weekly_hosp_admissions))
+  geom_point(aes(y=weekly_hosp_admissions))+
+  labs(x = "Date", y = 'Weekly Hospital Admissions (n)')
 
 ##keep getting an error here 
   
@@ -191,6 +196,7 @@ ggplot(covid_UK_2, aes(x=date, col=new_deaths)) +
 
 
 
+
 ##model5##
 covid_UK_2 <- covid_UK_2 %>%
   mutate(prediction_model5=predict(model5,type="response"))
@@ -198,24 +204,27 @@ covid_UK_2 <- covid_UK_2 %>%
 covid_UK_2 <- covid_UK_2 %>%
   mutate(prediction_model5=0)
 
-covid_U_2K$prediction_model5=predict(model5,type="response")
+covid_UK_2$prediction_model5=predict(model5,type="response")
 
-ggplot(covid_UK, aes(x=date, col=new_cases)) +
+ggplot(covid_UK_2, aes(x=date, col=new_cases)) +
   geom_line(aes(y=prediction_model5)) +
   scale_y_log10() +
-  geom_point(aes(y=new_cases))
+  geom_point(aes(y=new_cases))+
+  labs(x = "Date", y = 'COVID-19 Cases by Day (n)')
+
+  
 
 ##Model6##
 
-Covid_UK <- covid_UK %>%
+covid_UK_2 <- covid_UK_2 %>%
   mutate(prediction_model6=predict(model6,type="response"))
 
-covid_UK <- covid_UK %>%
+covid_UK_2 <- covid_UK_2 %>%
   mutate(prediction_model6=0)
 
-covid_UK$prediction_model6=predict(model6,type="response")
+covid_UK_2$prediction_model6=predict(model6,type="response")
 
-ggplot(covid_UK, aes(x=date, col=weekly_hosp_admissions)) +
+ggplot(covid_UK_2, aes(x=date, col=weekly_hosp_admissions)) +
   geom_line(aes(y=prediction_model6)) +
   scale_y_log10() +
   geom_point(aes(y=weekly_hosp_admissions))
@@ -261,7 +270,8 @@ covid_UK_3$prediction_model8=predict(model8,type="response")
 ggplot(covid_UK_3, aes(x=date, col=new_deaths)) +
   geom_line(aes(y=prediction_model8)) +
   scale_y_log10() +
-  geom_point(aes(y=new_deaths))
+  geom_point(aes(y=new_deaths))+
+  labs(x = "Date", y = 'COVID-19 Deaths by Day (n)')
 
 ##Model9##
 
@@ -276,7 +286,9 @@ covid_UK_3$prediction_model9=predict(model9,type="response")
 ggplot(covid_UK_3, aes(x=date, col=new_cases)) +
   geom_line(aes(y=prediction_model9)) +
   scale_y_log10() +
-  geom_point(aes(y=new_cases))
+  geom_point(aes(y=new_cases))+
+  labs(x = "Date", y = 'COVID-19 Cases by Day (n)')
+
 
 ##Model10##
 
@@ -291,7 +303,9 @@ covid_UK_3$prediction_model10=predict(model10,type="response")
 ggplot(covid_UK_3, aes(x=date, col=weekly_hosp_admissions)) +
   geom_line(aes(y=prediction_model10)) +
   scale_y_log10() +
-  geom_point(aes(y=weekly_hosp_admissions))
+  geom_point(aes(y=weekly_hosp_admissions)) +
+  labs(x = "Date", y = 'Weekly Hospital Admissions (n)')
+
 
 
 
@@ -356,7 +370,9 @@ covid_UK$prediction_model4=predict(model4,type="response")
 ggplot(covid_UK, aes(x=date, col=new_cases)) +
   geom_line(aes(y=prediction_model4)) +
   scale_y_log10() +
-  geom_point(aes(y=new_deaths))
+  geom_point(aes(y=new_deaths)) +
+  labs(x = "Date", y = 'Hospital Patients (n)', title = 'Number of COVID-19 Hospital Patients in the UK Between March 2020 - August 2021')
+
 
 
 
