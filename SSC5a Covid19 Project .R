@@ -122,17 +122,13 @@ ggplot(covid_UK_1, aes(x=date, col=new_deaths)) +
 covid_UK_1 <- covid_UK_1 %>%
   mutate(prediction_model1=predict(model1,type="response"))
 
-<<<<<<< HEAD
+
 # covid_U_1K <- covid_UK_1 %>%
 #   mutate(prediction_model1=0)
 # 
 # covid_UK_1$prediction_model1=predict(model1,type="response")
-=======
-covid_UK_1 <- covid_UK_1 %>%
-  mutate(prediction_model1=0)
 
-covid_UK_1$prediction_model1=predict(model1,type="response")
->>>>>>> 053b80ec85642ce2293963490281c5b976094a57
+
 
 ggplot(covid_UK_1, aes(x=date, col=new_cases)) +
   geom_line(aes(y=prediction_model1)) +
@@ -222,11 +218,6 @@ covid_UK_2 <- covid_UK_2 %>%
 # 
 # covid_U_2K$prediction_model5=predict(model5,type="response")
 
-<<<<<<< HEAD
-=======
-covid_UK_2$prediction_model5=predict(model5,type="response")
-
->>>>>>> 053b80ec85642ce2293963490281c5b976094a57
 ggplot(covid_UK_2, aes(x=date, col=new_cases)) +
   geom_line(aes(y=prediction_model5)) +
   scale_y_log10() +
@@ -237,7 +228,7 @@ ggplot(covid_UK_2, aes(x=date, col=new_cases)) +
 
 ##Model6##
 
-<<<<<<< HEAD
+
 
 prediction_model6 = data.frame(predict(model6,type="response")) 
 
@@ -257,16 +248,7 @@ covid_UK_2 <- covid_UK_2 %>%
 # 
 # covid_UK_2$prediction_model6=predict(model6,type="response")
 
-=======
-covid_UK_2 <- covid_UK_2 %>%
-  mutate(prediction_model6=predict(model6,type="response"))
 
-covid_UK_2 <- covid_UK_2 %>%
-  mutate(prediction_model6=0)
-
-covid_UK_2$prediction_model6=predict(model6,type="response")
-
->>>>>>> 053b80ec85642ce2293963490281c5b976094a57
 ggplot(covid_UK_2, aes(x=date, col=weekly_hosp_admissions)) +
   geom_line(aes(y=prediction_model6)) +
   scale_y_log10() +
